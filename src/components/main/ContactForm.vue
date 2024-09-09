@@ -31,14 +31,14 @@ const showPopup = ref(false);
 const sendMessage = () => {
   emailjs
     .send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      "service_xufnxq8",
+      "template_yo9qmic",
       {
         from_name: name.value,
         message: message.value,
         from_email: email.value,
       },
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      "I70RKpmZdwqxkUKKs"
     )
     .then((res) => {
       toggleShowPopup();
