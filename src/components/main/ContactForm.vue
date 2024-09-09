@@ -20,7 +20,6 @@
 import { ref, onMounted } from "vue";
 import { useVariablesStore } from "@/stores/store";
 import emailjs from "@emailjs/browser";
-import 'dotenv/config'
 
 const variablesStore = useVariablesStore();
 const form = ref<HTMLElement | null>(null);
@@ -32,14 +31,14 @@ const showPopup = ref(false);
 const sendMessage = () => {
   emailjs
     .send(
-      process.env.EMAILJS_SERVICE_ID,
-      "template_yo9qmic",
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
       {
         from_name: name.value,
         message: message.value,
         from_email: email.value,
       },
-      "I70RKpmZdwqxkUKKs"
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
     )
     .then((res) => {
       toggleShowPopup();
