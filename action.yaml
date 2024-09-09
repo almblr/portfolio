@@ -1,0 +1,16 @@
+name: 'Email'
+
+on: 
+  push:
+    branches: [ main ]
+
+env: 
+  EMAILJS_SERVICE_ID : ${{ vars.EMAILJS_SERVICE_ID }}
+
+jobs:
+  send-email: 
+    steps:
+      name: 'Show vars'
+      run: echo "$EMAILJS_SERVICE_ID"
+      env:
+          EMAILJS_SERVICE_ID: ${{ vars.EMAILJS_SERVICE_ID }}

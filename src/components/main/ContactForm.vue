@@ -20,6 +20,7 @@
 import { ref, onMounted } from "vue";
 import { useVariablesStore } from "@/stores/store";
 import emailjs from "@emailjs/browser";
+import 'dotenv/config'
 
 const variablesStore = useVariablesStore();
 const form = ref<HTMLElement | null>(null);
@@ -31,7 +32,7 @@ const showPopup = ref(false);
 const sendMessage = () => {
   emailjs
     .send(
-      "service_xufnxq8",
+      process.env.EMAILJS_SERVICE_ID,
       "template_yo9qmic",
       {
         from_name: name.value,
