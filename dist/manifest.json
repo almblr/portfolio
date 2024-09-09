@@ -1,11 +1,4 @@
 {
-  "name": "Portfolio",
-  "short_name": "#222222",
-  "theme_color": "#ffffff",
-  "background_color": "#222222",
-  "display": "browser",
-  "scope": "/",
-  "start_url": "/",
   "index.css": {
     "file": "assets/index-7077092b.css",
     "src": "index.css"
@@ -16,8 +9,10 @@
       "assets/tinyteams-5700d18b.png",
       "assets/thisPortfolio-33eeac24.png"
     ],
-    "css": ["assets/index-7077092b.css"],
-    "file": "assets/index-46db54b6.js",
+    "css": [
+      "assets/index-7077092b.css"
+    ],
+    "file": "assets/index-470d1182.js",
     "isEntry": true,
     "src": "index.html"
   },
