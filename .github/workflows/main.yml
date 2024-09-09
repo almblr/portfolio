@@ -3,6 +3,9 @@ name: 'Email'
 on: 
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  
 
 env: 
   EMAILJS_SERVICE_ID : ${{ vars.EMAILJS_SERVICE_ID }}
