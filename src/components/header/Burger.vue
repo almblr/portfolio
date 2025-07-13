@@ -5,10 +5,10 @@
 </template>
 
 <script setup lang="ts">
-import { useVariablesStore } from "@/stores/store";
-const variablesStore = useVariablesStore();
+import { useConfig } from "@/stores/store";
+const config = useConfig();
 const openMenu = (): void => {
-  variablesStore.menuIsOpen = !variablesStore.menuIsOpen;
+  config.menuIsOpen = !config.menuIsOpen;
 };
 </script>
 

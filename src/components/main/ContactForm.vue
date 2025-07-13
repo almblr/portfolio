@@ -18,10 +18,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { useVariablesStore } from "@/stores/store";
+import { useConfig } from "@/stores/store";
 import emailjs from "@emailjs/browser";
 
-const variablesStore = useVariablesStore();
+const config = useConfig();
 const form = ref<HTMLElement | null>(null);
 const name = ref("");
 const email = ref("");
@@ -57,7 +57,7 @@ const toggleShowPopup = () => {
 };
 
 onMounted(() => {
-  variablesStore.categories.c3 = document.querySelector("#contact");
+  config.categories.c3 = document.querySelector("#contact");
 });
 </script>
 

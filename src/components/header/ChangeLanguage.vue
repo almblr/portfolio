@@ -9,10 +9,10 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useVariablesStore } from "@/stores/store";
+import { useConfig } from "@/stores/store";
 import { useI18n } from "vue-i18n";
 const { locale } = useI18n();
-const variablesStore = useVariablesStore();
+const config = useConfig();
 
 const langue = computed(() => {
   if (locale.value === "en") return "FR";
@@ -21,7 +21,7 @@ const langue = computed(() => {
 
 const changeLanguage = (): void => {
   locale.value === "en" ? (locale.value = "fr") : (locale.value = "en");
-  variablesStore.language = locale.value.toUpperCase();
+  config.language = locale.value.toUpperCase();
 };
 </script>
 

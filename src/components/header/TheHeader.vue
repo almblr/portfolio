@@ -4,9 +4,9 @@
       <Logo />
       <nav class="navigation">
         <ChangeLanguage />
-        <HeaderNav v-if="variablesStore.isDesktop" />
+        <HeaderNav v-if="config.isDesktop" />
       </nav>
-      <button class="burger" v-if="!variablesStore.isDesktop">
+      <button class="burger" v-if="!config.isDesktop">
         <Burger />
       </button>
     </div>
@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { useVariablesStore } from "@/stores/store";
+import { useConfig } from "@/stores/store";
 import { useWindowScroll } from "@vueuse/core";
 import Logo from "@/components/header/Logo.vue";
 import HeaderNav from "@/components/header/HeaderNav.vue";
@@ -24,7 +24,7 @@ import ChangeLanguage from "@/components/header/ChangeLanguage.vue";
 import Burger from "@/components/header/Burger.vue";
 
 const { y } = useWindowScroll();
-const variablesStore = useVariablesStore();
+const config = useConfig();
 const band = ref<HTMLElement | null>(null);
 
 const checkValue = (value: number | boolean): void => {
@@ -51,7 +51,7 @@ const checkValue = (value: number | boolean): void => {
 };
 
 watch(() => y.value, checkValue);
-watch(() => variablesStore.menuIsOpen, checkValue);
+watch(() => config.menuIsOpen, checkValue);
 </script>
 
 <style scoped lang="scss">

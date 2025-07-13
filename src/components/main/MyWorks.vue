@@ -7,13 +7,13 @@
 
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { useVariablesStore } from "@/stores/store";
+import { useConfig } from "@/stores/store";
 import Project from "@/components/main/Project.vue";
 
-const variablesStore = useVariablesStore();
+const config = useConfig();
 
 onMounted(() => {
-  variablesStore.categories.c2 = document.querySelector("#myWorks");
+  config.categories.c2 = document.querySelector("#myWorks");
 });
 </script>
 

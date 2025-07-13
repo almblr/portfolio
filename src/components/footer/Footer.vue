@@ -8,9 +8,7 @@
     </p>
     <div class="socialMedia">
       <a href="https://github.com/soonbtf" target="_blank"> Github -</a>
-      <a href="https://www.linkedin.com/in/mehdibirlakhdar/" target="_blank">
-        LinkedIn</a
-      >
+      <a href="https://www.linkedin.com/in/mehdibirlakhdar/" target="_blank">LinkedIn</a>
     </div>
   </footer>
 </template>

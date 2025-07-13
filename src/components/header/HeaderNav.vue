@@ -8,20 +8,20 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { useVariablesStore } from "@/stores/store";
+import { useConfig } from "@/stores/store";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
-const variablesStore = useVariablesStore();
+const config = useConfig();
 const nav = ref<HTMLElement | null>(null);
 const isMenuOpen = computed(() => {
-  return variablesStore.menuIsOpen;
+  return config.menuIsOpen;
 });
 
 const scrollTo = (el: string): void => {
   // https://www.w3schools.com/typescript/typescript_keyof.php
-  const element = el.toLowerCase() as keyof typeof variablesStore.categories;
-  const htmlElement = variablesStore.categories[element];
+  const element = el.toLowerCase() as keyof typeof config.categories;
+  const htmlElement = config.categories[element];
   htmlElement?.scrollIntoView({
     behavior: "smooth",
     block: "start",

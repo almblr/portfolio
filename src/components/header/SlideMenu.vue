@@ -1,11 +1,11 @@
 <template>
-  <HeaderNav v-if="variablesStore.menuIsOpen" />
+  <HeaderNav v-if="config.menuIsOpen" />
 </template>
 
 <script setup lang="ts">
-import { useVariablesStore } from "@/stores/store";
+import { useConfig } from "@/stores/store";
 import HeaderNav from "@/components/header/HeaderNav.vue";
-const variablesStore = useVariablesStore();
+const config = useConfig();
 </script>
 
 <style scoped lang="scss">

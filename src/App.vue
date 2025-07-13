@@ -9,14 +9,14 @@
     </main>
     <FooterComponent />
     <Transition>
-      <SlideMenu v-if="variablesStore.menuIsOpen" />
+      <SlideMenu v-if="config.menuIsOpen" />
     </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
 import { watch, onMounted } from "vue";
-import { useVariablesStore } from "@/stores/store";
+import { useConfig } from "@/stores/store";
 import { useWindowSize, useWindowScroll } from "@vueuse/core";
 import TheHeader from "@/components/header/TheHeader.vue";
 import SlideMenu from "@/components/header/SlideMenu.vue";
@@ -26,20 +26,20 @@ import MyWorks from "@/components/main/MyWorks.vue";
 import ContactForm from "@/components/main/ContactForm.vue";
 import FooterComponent from "@/components/footer/Footer.vue";
 
-const variablesStore = useVariablesStore();
+const config = useConfig();
 const { width } = useWindowSize();
 const { y } = useWindowScroll();
 
 const checkWidth = (width: number): void => {
-  variablesStore.isDesktop = width > 768 ? true : false;
-  variablesStore.menuIsOpen = false;
+  config.isDesktop = width > 768 ? true : false;
+  config.menuIsOpen = false;
 };
 
 watch(() => width.value, checkWidth);
 watch(
   () => y.value,
   () => {
-    variablesStore.menuIsOpen = false;
+    config.menuIsOpen = false;
   }
 );
 

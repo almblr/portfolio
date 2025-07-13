@@ -11,11 +11,11 @@
 
 <script setup lang="ts">
 import GetInTouch from "@/components/main/GetInTouch.vue";
-import { useVariablesStore } from "@/stores/store";
+import { useConfig } from "@/stores/store";
 
-const variablesStore = useVariablesStore();
+const config = useConfig();
 const scrollTo = (el: string): void => {
-  variablesStore.categories.c3?.scrollIntoView({
+  config.categories.c3?.scrollIntoView({
     behavior: "smooth",
     block: "start",
   });

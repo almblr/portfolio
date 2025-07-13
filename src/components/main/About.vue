@@ -7,11 +7,11 @@
 
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
-import { useVariablesStore } from "@/stores/store";
+import { useConfig } from "@/stores/store";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
-const variablesStore = useVariablesStore();
+const config = useConfig();
 const paragraphes = computed(() => {
   const result = [];
   for (let i = 1; i <= 5; i++) {
@@ -21,7 +21,7 @@ const paragraphes = computed(() => {
 });
 
 onMounted(() => {
-  variablesStore.categories.c1 = document.querySelector("#about");
+  config.categories.c1 = document.querySelector("#about");
 });
 </script>
 
