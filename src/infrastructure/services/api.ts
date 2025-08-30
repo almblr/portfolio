@@ -10,6 +10,7 @@ export interface Api {
 
 const api = {
   post: async (url: string, body: any) => {
+    console.log(body);
     const response = await fetch(`${apiUrl}${url}`, {
       method: 'POST',
       headers: {
