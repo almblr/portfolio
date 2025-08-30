@@ -1,3 +1,27 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import useContact from "@/composables/useContact";
+
+const { sendEmail } = useContact()
+const form = ref<HTMLElement | null>(null);
+const name = ref("");
+const email = ref("");
+const message = ref("");
+const showPopup = ref(false);
+
+const submit = async () => {
+  await sendEmail(name.value, email.value, message.value);
+  toggleShowPopup();
+};
+
+const toggleShowPopup = () => {
+  showPopup.value = true;
+  setTimeout(() => {
+    showPopup.value = false;
+  }, 3000);
+};
+</script>
+
 <template>
   <section id="contact">
     <form ref="form" @submit.prevent="submit">
@@ -15,39 +39,6 @@
     <div class="popup" v-if="showPopup">{{ $t("misc.popupMsg") }}</div>
   </section>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { useConfig } from "@/stores/store";
-import useContact from "@/composables/use-contact";
-
-const config = useConfig();
-const { sendEmail } = useContact()
-const form = ref<HTMLElement | null>(null);
-const name = ref("");
-const email = ref("");
-const message = ref("");
-const showPopup = ref(false);
-
-const submit = async () => {
-  console.log(name.value);
-  console.log(email.value);
-  console.log(message.value);
-  await sendEmail(name.value, email.value, message.value);
-  toggleShowPopup();
-};
-
-const toggleShowPopup = () => {
-  showPopup.value = true;
-  setTimeout(() => {
-    showPopup.value = false;
-  }, 3000);
-};
-
-onMounted(() => {
-  config.categories.c3 = document.querySelector("#contact");
-});
-</script>
 
 <style scoped lang="scss">
 section {

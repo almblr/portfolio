@@ -1,5 +1,5 @@
 // TODO: make it a repository
-import getEnvVariable from "@/utils/getEnvVariable"
+import getEnvVariable from "@/utils/get-env-variable"
 
 const apiUrl = getEnvVariable('VITE_API_URL')
 
@@ -7,10 +7,8 @@ export interface Api {
   post: (url: string, body?: any) => Promise<any>
 }
 
-
 const api = {
   post: async (url: string, body: any) => {
-    console.log(body);
     const response = await fetch(`${apiUrl}${url}`, {
       method: 'POST',
       headers: {

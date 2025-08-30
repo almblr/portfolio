@@ -1,12 +1,3 @@
-<template>
-  <div>
-    <button @click="changeLanguage">
-      {{ langue }}
-    </button>
-    <div class="divider"></div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed } from "vue";
 import { useConfig } from "@/stores/store";
@@ -15,8 +6,7 @@ const { locale } = useI18n();
 const config = useConfig();
 
 const langue = computed(() => {
-  if (locale.value === "en") return "FR";
-  else return "EN";
+  return locale.value === "en" ? "FR" : "EN";
 });
 
 const changeLanguage = (): void => {
@@ -24,6 +14,15 @@ const changeLanguage = (): void => {
   config.language = locale.value.toUpperCase();
 };
 </script>
+
+<template>
+  <div>
+    <button @click="changeLanguage">
+      {{ langue }}
+    </button>
+    <div class="divider"></div>
+  </div>
+</template>
 
 <style scoped lang="scss">
 div {

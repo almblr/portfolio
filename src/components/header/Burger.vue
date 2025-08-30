@@ -1,9 +1,3 @@
-<template>
-  <div class="icon" @click="openMenu">
-    <div class="line" v-for="line in 3"></div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { useConfig } from "@/stores/store";
 const config = useConfig();
@@ -11,6 +5,12 @@ const openMenu = (): void => {
   config.menuIsOpen = !config.menuIsOpen;
 };
 </script>
+
+<template>
+  <div class="icon" @click="openMenu">
+    <div class="line" v-for="line in 3"></div>
+  </div>
+</template>
 
 <style scoped lang="scss">
 .icon {

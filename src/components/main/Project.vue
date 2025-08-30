@@ -1,77 +1,41 @@
+<script setup lang="ts">
+import BigButton from "@/components/main/BigButton.vue";
+import { useProjects } from "@/composables/useProjects";
+
+const { projects } = useProjects();
+
+const openNewTab = (link: string): void => {
+  window.open(link, "_blank");
+};
+</script>
+
 <template>
   <section
-    v-for="(project, index) in projects"
-    :style="{ backgroundColor: colors[index] }"
+    v-for="project in projects"
+    :key="project.key"
+    :style="{ backgroundColor: project.color }"
   >
     <article>
       <div class="text">
         <h2 class="project__title">{{ project.name }}</h2>
         <p class="project__descp">{{ project.description }}</p>
         <ul class="project__techno">
-          <li v-for="techno in project.technos">{{ techno }}</li>
+          <li v-for="techno in project.technos" :key="techno">{{ techno }}</li>
         </ul>
-        <div class="button" :title="project.link">
-          <GetInTouch
-            @click="openNewTab(project.link)"
-            :text="$t('misc.viewButton')"
-            :type="'repo'"
-          />
-          <GetInTouch
-            @click="openNewTab()"
-            v-if="project.name === 'TinyTeams'"
-            :text="$t('misc.watchDemo')"
-            :type="'repo'"
+        <div class="button">
+          <BigButton
+            v-for="action in project.actions"
+            :key="action.type"
+            @click="openNewTab(action.link)"
+            :text="$t(action.labelKey)"
+            type="repo"
           />
         </div>
       </div>
-      <img :src="getImage(index)" alt="projectImg" />
+      <img :src="project.image" alt="project image" />
     </article>
   </section>
 </template>
-
-<script setup lang="ts">
-import { computed } from "vue";
-import { data } from "@/i18n";
-import { useI18n } from "vue-i18n";
-import GetInTouch from "@/components/main/GetInTouch.vue";
-import tinyteams from "../../../public/assets/tinyteams.png";
-import thisPortfolio from "../../../public/assets/thisPortfolio.png";
-
-const { t } = useI18n();
-const colors = ["#001F37", "#222222"];
-
-const getImage = (index: number) => {
-  if (index === 0) {
-    return tinyteams;
-  } else {
-    return thisPortfolio;
-  }
-};
-
-const openNewTab = (link?: string): void => {
-  if (link) {
-    window.open(link, "_blank");
-  } else {
-    window.open("https://www.youtube.com/watch?v=yxCXfmS1xC4", "_blank");
-  }
-};
-
-const projects = computed(() => {
-  return Object.keys(data.en.projects).map((projectKey) => {
-    const project =
-      data.en.projects[projectKey as keyof typeof data.en.projects];
-    return {
-      name: t(`projects.${projectKey}.title`),
-      description: t(`projects.${projectKey}.description`),
-      link: t(`projects.${projectKey}.link`),
-      technos: Object.keys(project.technos).map((technoKey) =>
-        t(`projects.${projectKey}.technos.${technoKey}`)
-      ),
-    };
-  });
-});
-</script>
-
 <style scoped lang="scss">
 section {
   @include jcCt-aiCt;

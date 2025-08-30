@@ -1,3 +1,46 @@
+<script setup lang="ts">
+import { ref, watch } from "vue";
+import { useConfig } from "@/stores/store";
+import { useWindowScroll } from "@vueuse/core";
+import Logo from "@/components/header/Logo.vue";
+import HeaderNav from "@/components/header/HeaderNav.vue";
+import ChangeLanguage from "@/components/header/ChangeLanguage.vue";
+import Burger from "@/components/header/Burger.vue";
+
+const { y } = useWindowScroll();
+const config = useConfig();
+const band = ref<HTMLElement | null>(null);
+
+function updateBandOnScroll(scrollY: number) {
+  if (!band.value) return;
+
+  if (scrollY > 0) {
+    band.value.classList.add("colorBandWidth");
+  } else if (!config.menuIsOpen) {
+    // si menu fermé et scroll en haut -> reset
+    band.value.classList.remove("colorBandWidth");
+  }
+}
+
+function updateBandOnMenu(isOpen: boolean) {
+  if (!band.value) return;
+
+  if (isOpen) {
+    band.value.style.boxShadow = "none";
+    band.value.classList.add("colorBandWidth");
+  } else {
+    band.value.style.boxShadow = "0 0 10px 0 rgba(0, 0, 0, 0.2)";
+    if (y.value === 0) {
+      band.value.classList.remove("colorBandWidth");
+    }
+  }
+}
+
+watch(y, updateBandOnScroll);
+watch(() => config.menuIsOpen, updateBandOnMenu);
+</script>
+
+
 <template>
   <header>
     <div class="container">
@@ -13,46 +56,6 @@
     <div class="colorBand" ref="band"></div>
   </header>
 </template>
-
-<script setup lang="ts">
-import { ref, watch } from "vue";
-import { useConfig } from "@/stores/store";
-import { useWindowScroll } from "@vueuse/core";
-import Logo from "@/components/header/Logo.vue";
-import HeaderNav from "@/components/header/HeaderNav.vue";
-import ChangeLanguage from "@/components/header/ChangeLanguage.vue";
-import Burger from "@/components/header/Burger.vue";
-
-const { y } = useWindowScroll();
-const config = useConfig();
-const band = ref<HTMLElement | null>(null);
-
-const checkValue = (value: number | boolean): void => {
-  if (typeof value === "number") {
-    const scrollToTop = value;
-    if (scrollToTop !== 0) {
-      if (band.value) band.value.classList.add("colorBandWidth");
-    } else {
-      if (band.value) band.value.classList.remove("colorBandWidth");
-    }
-  } else if (typeof value === "boolean") {
-    const isMenuOpen = value;
-    const scrollToTop = y.value;
-    if (band.value) {
-      if (isMenuOpen) {
-        band.value.style.boxShadow = "none";
-        band.value.classList.add("colorBandWidth");
-      } else {
-        band.value.style.boxShadow = "0 0 10px 0 rgba(0, 0, 0, 0.2)";
-        if (scrollToTop === 0) band.value.classList.remove("colorBandWidth");
-      }
-    }
-  }
-};
-
-watch(() => y.value, checkValue);
-watch(() => config.menuIsOpen, checkValue);
-</script>
 
 <style scoped lang="scss">
 header {

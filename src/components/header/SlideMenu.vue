@@ -1,12 +1,12 @@
-<template>
-  <HeaderNav v-if="config.menuIsOpen" />
-</template>
-
 <script setup lang="ts">
 import { useConfig } from "@/stores/store";
 import HeaderNav from "@/components/header/HeaderNav.vue";
 const config = useConfig();
 </script>
+
+<template>
+  <HeaderNav v-if="config.menuIsOpen" />
+</template>
 
 <style scoped lang="scss">
 .v-enter-active,

@@ -1,44 +1,30 @@
-<template>
-  <nav :class="isMenuOpen ? 'nav--slider' : 'nav--header'">
-    <a @click="scrollTo(category.key)" v-for="category in categories">{{
-      category.value
-    }}</a>
-  </nav>
-</template>
-
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useConfig } from "@/stores/store";
 import { useI18n } from "vue-i18n";
+import useNavigation from "@/composables/useNavigation";
 const { t } = useI18n();
 
 const config = useConfig();
 const nav = ref<HTMLElement | null>(null);
-const isMenuOpen = computed(() => {
-  return config.menuIsOpen;
-});
-
-const scrollTo = (el: string): void => {
-  // https://www.w3schools.com/typescript/typescript_keyof.php
-  const element = el.toLowerCase() as keyof typeof config.categories;
-  const htmlElement = config.categories[element];
-  htmlElement?.scrollIntoView({
-    behavior: "smooth",
-    block: "start",
-  });
-};
+const isMenuOpen = computed(() => config.menuIsOpen);
+const { scrollToCategory } = useNavigation();
 
 const categories = computed(() => {
-  const result = [];
-  for (let i = 1; i <= 3; i++) {
-    result.push({
-      key: `c${i}`,
-      value: t(`categories.c${i}`),
-    });
-  }
-  return result;
+  return Object.keys(config.categories).map((key) => ({
+    key,
+    label: t(`categories.${key}`),
+  }));
 });
 </script>
+
+<template>
+  <nav :class="isMenuOpen ? 'nav--slider' : 'nav--header'">
+    <a @click="scrollToCategory(category.key)" v-for="category in categories">
+      {{ category.label }}
+    </a>
+  </nav>
+</template>
 
 <style scoped lang="scss">
 .nav--header {

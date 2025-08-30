@@ -1,15 +1,23 @@
-<template>
-  <button ref="button" :class="type === 'repo' ? 'repo' : null">
-    <span> {{ text }}</span>
-  </button>
-</template>
-
 <script setup lang="ts">
+import { computed } from "vue";
 const props = defineProps({
   text: String,
   type: String,
 });
+
+const buttonStyle = computed(() => {
+  return {
+    repo: props.type === "repo",
+    demo: props.type === "demo",
+  };
+})
 </script>
+
+<template>
+  <button ref="button" :class="buttonStyle">
+    <span> {{ text }}</span>
+  </button>
+</template>
 
 <style scoped lang="scss">
 button {

@@ -1,10 +1,10 @@
+<script setup lang="ts"></script>
+
 <template>
   <div class="logo">
-    <img src="../../../public/assets/logo.png" alt="logo" />
+    <img src="@/assets/logo.png" alt="logo" />
   </div>
 </template>
-
-<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .logo {

@@ -1,19 +1,3 @@
-<template>
-  <div id="container">
-    <TheHeader />
-    <main>
-      <Welcome />
-      <About />
-      <MyWorks />
-      <ContactForm />
-    </main>
-    <FooterComponent />
-    <Transition>
-      <SlideMenu v-if="config.menuIsOpen" />
-    </Transition>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { watch, onMounted } from "vue";
 import { useConfig } from "@/stores/store";
@@ -22,7 +6,7 @@ import TheHeader from "@/components/header/TheHeader.vue";
 import SlideMenu from "@/components/header/SlideMenu.vue";
 import Welcome from "@/components/main/Welcome.vue";
 import About from "@/components/main/About.vue";
-import MyWorks from "@/components/main/MyWorks.vue";
+import Projects from "@/components/main/Projects.vue";
 import ContactForm from "@/components/main/ContactForm.vue";
 import FooterComponent from "@/components/footer/Footer.vue";
 
@@ -31,20 +15,35 @@ const { width } = useWindowSize();
 const { y } = useWindowScroll();
 
 const checkWidth = (width: number): void => {
-  config.isDesktop = width > 768 ? true : false;
-  config.menuIsOpen = false;
+  config.updateWidth(width);
 };
 
 watch(() => width.value, checkWidth);
-watch(
-  () => y.value,
-  () => {
-    config.menuIsOpen = false;
-  }
-);
+watch(() => y.value, () => {
+  config.menuIsOpen = false;
+});
 
-onMounted(() => checkWidth(width.value));
+onMounted(() => {
+  checkWidth(width.value);
+  config.initCategories();
+});
 </script>
+
+<template>
+  <div id="container">
+    <TheHeader />
+    <main>
+      <Welcome />
+      <About />
+      <Projects />
+      <ContactForm />
+    </main>
+    <FooterComponent />
+    <Transition>
+      <SlideMenu v-if="config.menuIsOpen" />
+    </Transition>
+  </div>
+</template>
 
 <style lang="scss">
 * {

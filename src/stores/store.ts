@@ -6,10 +6,22 @@ export const useConfig = defineStore("variable", () => {
   const menuIsOpen = ref(false);
   const language = ref("EN");
   const categories = {
-    c1: ref<HTMLElement | null>(null),
-    c2: ref<HTMLElement | null>(null),
-    c3: ref<HTMLElement | null>(null),
+    about: ref<HTMLElement | null>(null),
+    projects: ref<HTMLElement | null>(null),
+    contact: ref<HTMLElement | null>(null),
   };
 
-  return { isDesktop, menuIsOpen, language, categories };
+  const updateWidth = (width: number): void => {
+    const mobileWidth = 768;
+    isDesktop.value = width > mobileWidth;
+    menuIsOpen.value = false;
+  };
+
+  const initCategories = (): void => {
+    categories.about.value = document.querySelector("#about");
+    categories.projects.value = document.querySelector("#projects");
+    categories.contact.value = document.querySelector("#contact");
+  };
+  
+  return { isDesktop, menuIsOpen, language, categories, updateWidth, initCategories };
 });

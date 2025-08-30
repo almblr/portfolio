@@ -1,3 +1,10 @@
+<script setup lang="ts">
+import BigButton from "@/components/main/BigButton.vue";
+import useNavigation from "@/composables/useNavigation";
+
+const { scrollToCategory } = useNavigation();
+</script>
+
 <template>
   <section>
     <p>{{ $t("welcome.title") }}</p>
@@ -5,22 +12,9 @@
     <p class="presentation">
       {{ $t("welcome.introduction") }}
     </p>
-    <GetInTouch :text="$t('welcome.button')" @click="scrollTo" />
+    <BigButton :text="$t('welcome.button')" @click="scrollToCategory('contact')" />
   </section>
 </template>
-
-<script setup lang="ts">
-import GetInTouch from "@/components/main/GetInTouch.vue";
-import { useConfig } from "@/stores/store";
-
-const config = useConfig();
-const scrollTo = (el: string): void => {
-  config.categories.c3?.scrollIntoView({
-    behavior: "smooth",
-    block: "start",
-  });
-};
-</script>
 
 <style scoped lang="scss">
 section {
